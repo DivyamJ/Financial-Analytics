@@ -1,0 +1,1566 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Lead-Lag Relationships}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Detection of Lead-Lag
+relationships}\label{detection-of-lead-lag-relationships}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}309}]:} \PY{c+c1}{\PYZsh{}Importing Libraries}
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+\end{Verbatim}
+
+
+    \subsubsection{Agriculture Index}\label{agriculture-index}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}310}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{AGRICULTURE.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}311}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}311}]:}                 SPOT    FUTURE
+          DATE                          
+          2009-12-10  270.1053  126.8045
+          2009-12-11  273.7968  128.4607
+          2009-12-14  279.7481  131.1803
+          2009-12-15  278.2661  130.4855
+          2009-12-16  282.3329  132.3927
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}312}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}313}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}314}]:} \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}314}]:} Text(0,0.5,'Price')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{STATIONARITY TEST}\label{stationarity-test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}315}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{stattools} \PY{k}{import} \PY{n}{adfuller}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}316}]:} \PY{c+c1}{\PYZsh{}ON SPOT PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}316}]:} (-1.5108152003856385,
+           0.5281545911336507,
+           1,
+           2567,
+           \{'1\%': -3.432900000469521,
+            '5\%': -2.8626665895880508,
+            '10\%': -2.567369725077316\},
+           13557.035863748632)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}317}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}317}]:} (-49.105108554868515,
+           0.0,
+           0,
+           2567,
+           \{'1\%': -3.432900000469521,
+            '5\%': -2.8626665895880508,
+            '10\%': -2.567369725077316\},
+           13553.042843639545)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} \PY{c+c1}{\PYZsh{}ON FUTURE PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}318}]:} (-0.9362975103280478,
+           0.7757842976422112,
+           5,
+           2563,
+           \{'1\%': -3.4329039841780644,
+            '5\%': -2.8626683488356117,
+            '10\%': -2.5673706617172343\},
+           9219.330858001931)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}319}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}319}]:} (-21.506530804569486,
+           0.0,
+           4,
+           2563,
+           \{'1\%': -3.4329039841780644,
+            '5\%': -2.8626683488356117,
+            '10\%': -2.5673706617172343\},
+           9215.508134106149)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}320}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}320}]:}                 SPOT    FUTURE  SPOT Difference  FUTURE Difference
+          DATE                                                              
+          2009-12-10  270.1053  126.8045              NaN                NaN
+          2009-12-11  273.7968  128.4607           3.6915             1.6562
+          2009-12-14  279.7481  131.1803           5.9513             2.7196
+          2009-12-15  278.2661  130.4855          -1.4820            -0.6948
+          2009-12-16  282.3329  132.3927           4.0668             1.9072
+\end{Verbatim}
+            
+    The Augmented Dickey-Fuller(ADF) unit root test shows that the order of
+integration of both the time series is 1
+
+    \paragraph{Selection of Lag Order}\label{selection-of-lag-order}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}321}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{select\PYZus{}order}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}322}]:} \PY{n}{lags} \PY{o}{=} \PY{n}{select\PYZus{}order}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{maxlags}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}323}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{ics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}323}]:} defaultdict(list,
+                      \{'aic': [0.21481885765020273,
+                        0.1700199596430323,
+                        0.16402455232867902,
+                        0.14868554216991547,
+                        0.14640060953972608],
+                       'bic': [0.23306947798730276,
+                        0.19739589014868233,
+                        0.2005257930028791,
+                        0.19431209301266558,
+                        0.2011524705510262],
+                       'hqic': [0.22143618925865835,
+                        0.1799459570557157,
+                        0.17725921554559027,
+                        0.16522887119105453,
+                        0.16625260436509295],
+                       'fpe': [1.2396373320845766,
+                        1.1853285300706864,
+                        1.178243291072056,
+                        1.1603081556622221,
+                        1.1576600229930996]\})
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}324}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{selected\PYZus{}orders}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}324}]:} \{'aic': 4, 'bic': 3, 'hqic': 3, 'fpe': 4\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}325}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{vecm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}325}]:} True
+\end{Verbatim}
+            
+    As per the above information criteria, it shows that the model is a VECM
+model with optimal lag length of 4
+
+    \paragraph{COINTEGRATION TESTS}\label{cointegration-tests}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}326}]:} \PY{c+c1}{\PYZsh{}Checking for cointegration between the two variables}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{coint\PYZus{}johansen}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}https://towardsdatascience.com/vector\PYZhy{}autoregressions\PYZhy{}vector\PYZhy{}error\PYZhy{}correction\PYZhy{}multivariate\PYZhy{}model\PYZhy{}a69daf6ab618\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}326}]:} 'https://towardsdatascience.com/vector-autoregressions-vector-error-correction-multivariate-model-a69daf6ab618'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}327}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}\PYZsh{}Checking for cointegration using ADFuller }
+          \PY{l+s+sd}{from statsmodels.regression.linear\PYZus{}model import OLS}
+          \PY{l+s+sd}{\PYZsh{}import statsmodels.tools as sm}
+          \PY{l+s+sd}{\PYZsh{}x = sm.add\PYZus{}constant(df[\PYZsq{}FUTURE\PYZsq{}])}
+          \PY{l+s+sd}{res = OLS(df[\PYZsq{}SPOT\PYZsq{}],df[\PYZsq{}FUTURE\PYZsq{}]).fit()}
+          \PY{l+s+sd}{res.summary()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}327}]:} "\#Checking for cointegration using ADFuller \textbackslash{}nfrom statsmodels.regression.linear\_model import OLS\textbackslash{}n\#import statsmodels.tools as sm\textbackslash{}n\#x = sm.add\_constant(df['FUTURE'])\textbackslash{}nres = OLS(df['SPOT'],df['FUTURE']).fit()\textbackslash{}nres.summary()"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}328}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}adfuller(res.resid)\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}328}]:} 'adfuller(res.resid)'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}329}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}res.resid.plot()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}329}]:} 'res.resid.plot()'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}330}]:} \PY{n}{result} \PY{o}{=} \PY{n}{coint\PYZus{}johansen}\PY{p}{(}\PY{n}{endog} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{det\PYZus{}order} \PY{o}{=} \PY{l+m+mi}{0} \PY{p}{,} \PY{n}{k\PYZus{}ar\PYZus{}diff}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    ''' Read output of coint\_johansen:
+https://kite.com/python/docs/statsmodels.tsa.vector\_ar.vecm.coint\_johansen
+'''
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}331}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr1} \PY{c+c1}{\PYZsh{} Trace statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}331}]:} array([6.38714619, 0.00917241])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}332}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvt} \PY{c+c1}{\PYZsh{}Shows critical values for trace statistics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}332}]:} array([[13.4294, 15.4943, 19.9349],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}333}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr2} \PY{c+c1}{\PYZsh{}Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}333}]:} array([6.37797378, 0.00917241])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}334}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvm} \PY{c+c1}{\PYZsh{}Critical Values for Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}334}]:} array([[12.2971, 14.2639, 18.52  ],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}335}]:} \PY{n}{result}\PY{o}{.}\PY{n}{evec}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}335}]:} array([[ 0.02892297, -0.04578122],
+                 [-0.02391151,  0.09764633]])
+\end{Verbatim}
+            
+    As per the above Johansen's cointegration test it shows that the
+variables are not cointegrated
+
+    \paragraph{VECM Model}\label{vecm-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}336}]:} \PY{c+c1}{\PYZsh{}VECM Model}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{VECM}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}337}]:} \PY{n}{model} \PY{o}{=} \PY{n}{VECM}\PY{p}{(}\PY{n}{endog}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{k\PYZus{}ar\PYZus{}diff} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{coint\PYZus{}rank}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}338}]:} \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}338}]:} <class 'statsmodels.iolib.summary.Summary'>
+          """
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation SPOT
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          0.5960      0.390      1.529      0.126      -0.168       1.360
+          L1.SPOT       -0.3263      0.095     -3.440      0.001      -0.512      -0.140
+          L1.FUTURE      0.8693      0.222      3.922      0.000       0.435       1.304
+          L2.SPOT        0.2291      0.096      2.388      0.017       0.041       0.417
+          L2.FUTURE     -0.5749      0.224     -2.565      0.010      -1.014      -0.136
+          L3.SPOT        0.1777      0.096      1.852      0.064      -0.010       0.366
+          L3.FUTURE     -0.3562      0.224     -1.590      0.112      -0.795       0.083
+          L4.SPOT       -0.1077      0.095     -1.135      0.256      -0.294       0.078
+          L4.FUTURE      0.2126      0.222      0.959      0.337      -0.222       0.647
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation FUTURE
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          0.1687      0.167      1.011      0.312      -0.158       0.496
+          L1.SPOT       -0.0520      0.041     -1.280      0.201      -0.132       0.028
+          L1.FUTURE      0.1762      0.095      1.857      0.063      -0.010       0.362
+          L2.SPOT        0.0553      0.041      1.346      0.178      -0.025       0.136
+          L2.FUTURE     -0.1549      0.096     -1.615      0.106      -0.343       0.033
+          L3.SPOT        0.0162      0.041      0.394      0.693      -0.064       0.097
+          L3.FUTURE     -0.0232      0.096     -0.242      0.809      -0.211       0.165
+          L4.SPOT       -0.0733      0.041     -1.806      0.071      -0.153       0.006
+          L4.FUTURE      0.1574      0.095      1.660      0.097      -0.028       0.343
+                          Loading coefficients (alpha) for equation SPOT                
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0031      0.002     -1.574      0.116      -0.007       0.001
+                         Loading coefficients (alpha) for equation FUTURE               
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0010      0.001     -1.129      0.259      -0.003       0.001
+                    Cointegration relations for loading-coefficients-column 1           
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          beta.1         1.0000          0          0      0.000       1.000       1.000
+          beta.2        -0.8267      0.437     -1.892      0.058      -1.683       0.030
+          ==============================================================================
+          """
+\end{Verbatim}
+            
+    \paragraph{CONCLUSION}\label{conclusion}
+
+    Coefficient of lagged values of FUTURE in the regression of SPOT:
+significant at 5\% level Coefficient of lagged values of SPOT in the
+regression of FUTURE: not significant at 5\% level Coefficient of
+loading coeffcient in the regression of SPOT: not significant at 5\%
+level Coefficient of loading coeffcient in the regression of FUTURE: not
+significant at 5\% level
+
+Hence, based on the above results we can say there is a short-run
+unidirectional causality running from FUTURE to SPOT and there is no
+long term causality running between the two variables.
+
+    \section{Live Stock Index}\label{live-stock-index}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}339}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LIVE STOCK.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}340}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}340}]:}                 SPOT   FUTURE
+          DATE                         
+          2009-12-10  127.3650  66.9102
+          2009-12-11  128.4296  67.4695
+          2009-12-14  129.4118  67.9858
+          2009-12-15  131.4888  69.0770
+          2009-12-16  131.0259  68.8339
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}341}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}342}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,}\PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}343}]:} \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}343}]:} Text(0,0.5,'Price')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{STATIONARITY TEST}\label{stationarity-test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}344}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{stattools} \PY{k}{import} \PY{n}{adfuller}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}345}]:} \PY{c+c1}{\PYZsh{}ON SPOT PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}345}]:} (-2.6009450561177263,
+           0.09280210083008011,
+           3,
+           2568,
+           \{'1\%': -3.4328990064834404,
+            '5\%': -2.8626661506329856,
+            '10\%': -2.5673694913735794\},
+           10053.544161022579)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}346}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}346}]:} (-26.784864768702366,
+           0.0,
+           2,
+           2568,
+           \{'1\%': -3.4328990064834404,
+            '5\%': -2.8626661506329856,
+            '10\%': -2.5673694913735794\},
+           10054.662471479684)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}347}]:} \PY{c+c1}{\PYZsh{}ON FUTURE PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}347}]:} (-1.5502558007809173,
+           0.5085204177870704,
+           0,
+           2571,
+           \{'1\%': -3.432896029169223,
+            '5\%': -2.862664835817767,
+            '10\%': -2.5673687913539416\},
+           4802.425783417375)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}348}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}348}]:} (-49.77417134338738,
+           0.0,
+           0,
+           2570,
+           \{'1\%': -3.432897020834196,
+            '5\%': -2.8626652737482425,
+            '10\%': -2.5673690245121046\},
+           4802.955402459513)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}349}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}349}]:}                 SPOT   FUTURE  SPOT Difference  FUTURE Difference
+          DATE                                                             
+          2009-12-10  127.3650  66.9102              NaN                NaN
+          2009-12-11  128.4296  67.4695           1.0646             0.5593
+          2009-12-14  129.4118  67.9858           0.9822             0.5163
+          2009-12-15  131.4888  69.0770           2.0770             1.0912
+          2009-12-16  131.0259  68.8339          -0.4629            -0.2431
+\end{Verbatim}
+            
+    The Augmented Dickey-Fuller(ADF) unit root test shows that the order of
+integration of both the time series is 1
+
+    \paragraph{Selection of Lag Order}\label{selection-of-lag-order}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}350}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{select\PYZus{}order}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}351}]:} \PY{n}{lags} \PY{o}{=} \PY{n}{select\PYZus{}order}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{maxlags}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}352}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{ics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}352}]:} defaultdict(list,
+                      \{'aic': [0.21481885765020273,
+                        0.1700199596430323,
+                        0.16402455232867902,
+                        0.14868554216991547,
+                        0.14640060953972608],
+                       'bic': [0.23306947798730276,
+                        0.19739589014868233,
+                        0.2005257930028791,
+                        0.19431209301266558,
+                        0.2011524705510262],
+                       'hqic': [0.22143618925865835,
+                        0.1799459570557157,
+                        0.17725921554559027,
+                        0.16522887119105453,
+                        0.16625260436509295],
+                       'fpe': [1.2396373320845766,
+                        1.1853285300706864,
+                        1.178243291072056,
+                        1.1603081556622221,
+                        1.1576600229930996]\})
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}353}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{selected\PYZus{}orders}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}353}]:} \{'aic': 4, 'bic': 3, 'hqic': 3, 'fpe': 4\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}354}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{vecm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}354}]:} True
+\end{Verbatim}
+            
+    As per the above information criteria, it shows that the model is a VECM
+model with optimal lag length of 4
+
+    \paragraph{COINTEGRATION TESTS}\label{cointegration-tests}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}355}]:} \PY{c+c1}{\PYZsh{}Checking for cointegration between the two variables}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{coint\PYZus{}johansen}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}https://towardsdatascience.com/vector\PYZhy{}autoregressions\PYZhy{}vector\PYZhy{}error\PYZhy{}correction\PYZhy{}multivariate\PYZhy{}model\PYZhy{}a69daf6ab618\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}355}]:} 'https://towardsdatascience.com/vector-autoregressions-vector-error-correction-multivariate-model-a69daf6ab618'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}356}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}\PYZsh{}Checking for cointegration using ADFuller }
+          \PY{l+s+sd}{from statsmodels.regression.linear\PYZus{}model import OLS}
+          \PY{l+s+sd}{\PYZsh{}import statsmodels.tools as sm}
+          \PY{l+s+sd}{\PYZsh{}x = sm.add\PYZus{}constant(df[\PYZsq{}FUTURE\PYZsq{}])}
+          \PY{l+s+sd}{res = OLS(df[\PYZsq{}SPOT\PYZsq{}],df[\PYZsq{}FUTURE\PYZsq{}]).fit()}
+          \PY{l+s+sd}{res.summary()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}356}]:} "\#Checking for cointegration using ADFuller \textbackslash{}nfrom statsmodels.regression.linear\_model import OLS\textbackslash{}n\#import statsmodels.tools as sm\textbackslash{}n\#x = sm.add\_constant(df['FUTURE'])\textbackslash{}nres = OLS(df['SPOT'],df['FUTURE']).fit()\textbackslash{}nres.summary()"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}357}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}adfuller(res.resid)\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}357}]:} 'adfuller(res.resid)'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}358}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}res.resid.plot()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}358}]:} 'res.resid.plot()'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}359}]:} \PY{n}{result} \PY{o}{=} \PY{n}{coint\PYZus{}johansen}\PY{p}{(}\PY{n}{endog} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{det\PYZus{}order} \PY{o}{=} \PY{l+m+mi}{0} \PY{p}{,} \PY{n}{k\PYZus{}ar\PYZus{}diff}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    ''' Read output of coint\_johansen:
+https://kite.com/python/docs/statsmodels.tsa.vector\_ar.vecm.coint\_johansen
+'''
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}360}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr1} \PY{c+c1}{\PYZsh{} Trace statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}360}]:} array([10.59146604,  2.25174744])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}361}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvt} \PY{c+c1}{\PYZsh{}Shows critical values for trace statistics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}361}]:} array([[13.4294, 15.4943, 19.9349],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}362}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr2} \PY{c+c1}{\PYZsh{}Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}362}]:} array([8.3397186 , 2.25174744])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}363}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvm} \PY{c+c1}{\PYZsh{}Critical Values for Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}363}]:} array([[12.2971, 14.2639, 18.52  ],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}364}]:} \PY{n}{result}\PY{o}{.}\PY{n}{evec}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}364}]:} array([[ 0.05458684, -0.01792027],
+                 [-0.06153226,  0.16062588]])
+\end{Verbatim}
+            
+    As per the above Johansen's cointegration test it shows that the
+variables are not cointegrated
+
+    \paragraph{VECM Model}\label{vecm-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}365}]:} \PY{c+c1}{\PYZsh{}VECM Model}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{VECM}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}366}]:} \PY{n}{model} \PY{o}{=} \PY{n}{VECM}\PY{p}{(}\PY{n}{endog}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{k\PYZus{}ar\PYZus{}diff} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{coint\PYZus{}rank}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}367}]:} \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}367}]:} <class 'statsmodels.iolib.summary.Summary'>
+          """
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation SPOT
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          0.4418      0.191      2.311      0.021       0.067       0.817
+          L1.SPOT        0.1443      0.067      2.170      0.030       0.014       0.275
+          L1.FUTURE     -0.3351      0.186     -1.806      0.071      -0.699       0.029
+          L2.SPOT        0.2508      0.067      3.753      0.000       0.120       0.382
+          L2.FUTURE     -0.6573      0.186     -3.528      0.000      -1.023      -0.292
+          L3.SPOT        0.1137      0.067      1.702      0.089      -0.017       0.245
+          L3.FUTURE     -0.2214      0.186     -1.191      0.234      -0.586       0.143
+          L4.SPOT        0.0308      0.066      0.463      0.643      -0.100       0.161
+          L4.FUTURE     -0.0691      0.185     -0.373      0.709      -0.432       0.294
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation FUTURE
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          0.1121      0.069      1.635      0.102      -0.022       0.246
+          L1.SPOT       -0.0006      0.024     -0.026      0.979      -0.047       0.046
+          L1.FUTURE      0.0187      0.067      0.281      0.779      -0.112       0.149
+          L2.SPOT       -0.0041      0.024     -0.171      0.864      -0.051       0.043
+          L2.FUTURE      0.0068      0.067      0.102      0.919      -0.124       0.138
+          L3.SPOT        0.0039      0.024      0.163      0.871      -0.043       0.051
+          L3.FUTURE      0.0178      0.067      0.267      0.789      -0.113       0.148
+          L4.SPOT        0.0267      0.024      1.119      0.263      -0.020       0.073
+          L4.FUTURE     -0.0693      0.066     -1.046      0.296      -0.199       0.061
+                          Loading coefficients (alpha) for equation SPOT                
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0044      0.002     -2.371      0.018      -0.008      -0.001
+                         Loading coefficients (alpha) for equation FUTURE               
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0012      0.001     -1.775      0.076      -0.002       0.000
+                    Cointegration relations for loading-coefficients-column 1           
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          beta.1         1.0000          0          0      0.000       1.000       1.000
+          beta.2        -1.1272      0.846     -1.333      0.183      -2.785       0.530
+          ==============================================================================
+          """
+\end{Verbatim}
+            
+    \paragraph{CONCLUSION}\label{conclusion}
+
+    Coefficient of lagged values of FUTURE in the regression of SPOT:
+significant at 5\% level. Coefficient of lagged values of SPOT in the
+regression of FUTURE: not significant at 5\% level Coefficient of
+loading coeffcient in the regression of SPOT: not significant at 5\%
+level Coefficient of loading coeffcient in the regression of FUTURE: not
+significant at 5\% level
+
+Hence, based on the above results we can say there is a short-run
+unidirectional causality running from FUTURE to SPOT and there is no
+long term causality running between the two variables.
+
+    \section{Precious Metals Index}\label{precious-metals-index}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}368}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PRECIOUS METALS.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}369}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}369}]:}                 SPOT    FUTURE
+          DATE                          
+          2009-12-10  334.3950  330.8218
+          2009-12-11  332.5137  328.9610
+          2009-12-14  334.7776  331.2021
+          2009-12-15  335.2786  331.6981
+          2009-12-16  339.4102  335.7859
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}370}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}397}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{,}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_86_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}372}]:} \PY{n}{df}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{)}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Time}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Price}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}372}]:} Text(0,0.5,'Price')
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_87_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{STATIONARITY TEST}\label{stationarity-test}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}373}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{stattools} \PY{k}{import} \PY{n}{adfuller}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}374}]:} \PY{c+c1}{\PYZsh{}ON SPOT PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}374}]:} (-1.977330628130098,
+           0.2966004183641978,
+           9,
+           2560,
+           \{'1\%': -3.4329069801374077,
+            '5\%': -2.862669671881199,
+            '10\%': -2.5673713661193847\},
+           15523.10659408757)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}375}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SPOT Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}375}]:} (-15.978085359558444,
+           6.884561565751759e-29,
+           8,
+           2560,
+           \{'1\%': -3.4329069801374077,
+            '5\%': -2.862669671881199,
+            '10\%': -2.5673713661193847\},
+           15518.061816683363)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}376}]:} \PY{c+c1}{\PYZsh{}ON FUTURE PRICE}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}376}]:} (-1.839941732983566,
+           0.3608196718566172,
+           9,
+           2560,
+           \{'1\%': -3.4329069801374077,
+            '5\%': -2.862669671881199,
+            '10\%': -2.5673713661193847\},
+           15253.427698165557)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}377}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{shift}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{adfuller}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FUTURE Difference}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}377}]:} (-16.035185188253703,
+           5.996990709845228e-29,
+           8,
+           2560,
+           \{'1\%': -3.4329069801374077,
+            '5\%': -2.862669671881199,
+            '10\%': -2.5673713661193847\},
+           15247.927160892903)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}378}]:} \PY{n}{df}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}378}]:}                 SPOT    FUTURE  SPOT Difference  FUTURE Difference
+          DATE                                                              
+          2009-12-10  334.3950  330.8218              NaN                NaN
+          2009-12-11  332.5137  328.9610          -1.8813            -1.8608
+          2009-12-14  334.7776  331.2021           2.2639             2.2411
+          2009-12-15  335.2786  331.6981           0.5010             0.4960
+          2009-12-16  339.4102  335.7859           4.1316             4.0878
+\end{Verbatim}
+            
+    The Augmented Dickey-Fuller(ADF) unit root test shows that the order of
+integration of both the time series is 1
+
+    \paragraph{Selection of Lag Order}\label{selection-of-lag-order}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}379}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{select\PYZus{}order}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}380}]:} \PY{n}{lags} \PY{o}{=} \PY{n}{select\PYZus{}order}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{maxlags}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,}\PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}381}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{ics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}381}]:} defaultdict(list,
+                      \{'aic': [0.21481885765020273,
+                        0.1700199596430323,
+                        0.16402455232867902,
+                        0.14868554216991547,
+                        0.14640060953972608],
+                       'bic': [0.23306947798730276,
+                        0.19739589014868233,
+                        0.2005257930028791,
+                        0.19431209301266558,
+                        0.2011524705510262],
+                       'hqic': [0.22143618925865835,
+                        0.1799459570557157,
+                        0.17725921554559027,
+                        0.16522887119105453,
+                        0.16625260436509295],
+                       'fpe': [1.2396373320845766,
+                        1.1853285300706864,
+                        1.178243291072056,
+                        1.1603081556622221,
+                        1.1576600229930996]\})
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}382}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{selected\PYZus{}orders}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}382}]:} \{'aic': 4, 'bic': 3, 'hqic': 3, 'fpe': 4\}
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}383}]:} \PY{n}{lag}\PY{o}{.}\PY{n}{vecm}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}383}]:} True
+\end{Verbatim}
+            
+    As per the above information criteria, it shows that the model is a VECM
+model with optimal lag length of 4
+
+    \paragraph{COINTEGRATION TESTS}\label{cointegration-tests}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}384}]:} \PY{c+c1}{\PYZsh{}Checking for cointegration between the two variables}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{coint\PYZus{}johansen}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}https://towardsdatascience.com/vector\PYZhy{}autoregressions\PYZhy{}vector\PYZhy{}error\PYZhy{}correction\PYZhy{}multivariate\PYZhy{}model\PYZhy{}a69daf6ab618\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}384}]:} 'https://towardsdatascience.com/vector-autoregressions-vector-error-correction-multivariate-model-a69daf6ab618'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}385}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}\PYZsh{}Checking for cointegration using ADFuller }
+          \PY{l+s+sd}{from statsmodels.regression.linear\PYZus{}model import OLS}
+          \PY{l+s+sd}{\PYZsh{}import statsmodels.tools as sm}
+          \PY{l+s+sd}{\PYZsh{}x = sm.add\PYZus{}constant(df[\PYZsq{}FUTURE\PYZsq{}])}
+          \PY{l+s+sd}{res = OLS(df[\PYZsq{}SPOT\PYZsq{}],df[\PYZsq{}FUTURE\PYZsq{}]).fit()}
+          \PY{l+s+sd}{res.summary()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}385}]:} "\#Checking for cointegration using ADFuller \textbackslash{}nfrom statsmodels.regression.linear\_model import OLS\textbackslash{}n\#import statsmodels.tools as sm\textbackslash{}n\#x = sm.add\_constant(df['FUTURE'])\textbackslash{}nres = OLS(df['SPOT'],df['FUTURE']).fit()\textbackslash{}nres.summary()"
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}386}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}adfuller(res.resid)\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}386}]:} 'adfuller(res.resid)'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}387}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}res.resid.plot()\PYZsq{}\PYZsq{}\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}387}]:} 'res.resid.plot()'
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}388}]:} \PY{n}{result} \PY{o}{=} \PY{n}{coint\PYZus{}johansen}\PY{p}{(}\PY{n}{endog} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{det\PYZus{}order} \PY{o}{=} \PY{l+m+mi}{0} \PY{p}{,} \PY{n}{k\PYZus{}ar\PYZus{}diff}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+\end{Verbatim}
+
+
+    ''' Read output of coint\_johansen:
+https://kite.com/python/docs/statsmodels.tsa.vector\_ar.vecm.coint\_johansen
+'''
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}389}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr1} \PY{c+c1}{\PYZsh{} Trace statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}389}]:} array([4.53108969, 0.01443324])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}390}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvt} \PY{c+c1}{\PYZsh{}Shows critical values for trace statistics}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}390}]:} array([[13.4294, 15.4943, 19.9349],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}391}]:} \PY{n}{result}\PY{o}{.}\PY{n}{lr2} \PY{c+c1}{\PYZsh{}Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}391}]:} array([4.51665646, 0.01443324])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}392}]:} \PY{n}{result}\PY{o}{.}\PY{n}{cvm} \PY{c+c1}{\PYZsh{}Critical Values for Eigen value statistic}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}392}]:} array([[12.2971, 14.2639, 18.52  ],
+                 [ 2.7055,  3.8415,  6.6349]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}393}]:} \PY{n}{result}\PY{o}{.}\PY{n}{evec}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}393}]:} array([[ 0.07794125, -0.10503688],
+                 [-0.06442988,  0.11014795]])
+\end{Verbatim}
+            
+    As per the above Johansen's cointegration test it shows that the
+variables are not cointegrated
+
+    \paragraph{VECM Model}\label{vecm-model}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}394}]:} \PY{c+c1}{\PYZsh{}VECM Model}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{tsa}\PY{n+nn}{.}\PY{n+nn}{vector\PYZus{}ar}\PY{n+nn}{.}\PY{n+nn}{vecm} \PY{k}{import} \PY{n}{VECM}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}395}]:} \PY{n}{model} \PY{o}{=} \PY{n}{VECM}\PY{p}{(}\PY{n}{endog}\PY{o}{=}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,}\PY{n}{k\PYZus{}ar\PYZus{}diff} \PY{o}{=} \PY{l+m+mi}{4}\PY{p}{,} \PY{n}{coint\PYZus{}rank}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{deterministic}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{co}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Divyam Jain\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}statsmodels\textbackslash{}tsa\textbackslash{}base\textbackslash{}tsa\_model.py:225: ValueWarning: A date index has been provided, but it has no associated frequency information and so will be ignored when e.g. forecasting.
+  ' ignored when e.g. forecasting.', ValueWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}396}]:} \PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}396}]:} <class 'statsmodels.iolib.summary.Summary'>
+          """
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation SPOT
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          1.4654      0.681      2.151      0.032       0.130       2.801
+          L1.SPOT       -0.7691      0.115     -6.681      0.000      -0.995      -0.543
+          L1.FUTURE      0.7746      0.120      6.434      0.000       0.539       1.011
+          L2.SPOT       -0.5750      0.139     -4.137      0.000      -0.847      -0.303
+          L2.FUTURE      0.5923      0.145      4.085      0.000       0.308       0.877
+          L3.SPOT       -0.1582      0.139     -1.139      0.255      -0.430       0.114
+          L3.FUTURE      0.1684      0.145      1.159      0.247      -0.116       0.453
+          L4.SPOT       -0.1487      0.115     -1.294      0.196      -0.374       0.077
+          L4.FUTURE      0.1369      0.121      1.133      0.257      -0.100       0.374
+          Det. terms outside the coint. relation \& lagged endog. parameters for equation FUTURE
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          const          1.4004      0.652      2.149      0.032       0.123       2.677
+          L1.SPOT       -0.0174      0.110     -0.158      0.874      -0.233       0.198
+          L1.FUTURE     -0.0060      0.115     -0.052      0.958      -0.232       0.220
+          L2.SPOT       -0.0408      0.133     -0.307      0.759      -0.301       0.220
+          L2.FUTURE      0.0367      0.139      0.265      0.791      -0.235       0.308
+          L3.SPOT        0.1775      0.133      1.336      0.182      -0.083       0.438
+          L3.FUTURE     -0.1789      0.139     -1.287      0.198      -0.451       0.094
+          L4.SPOT        0.0188      0.110      0.172      0.864      -0.197       0.234
+          L4.FUTURE     -0.0366      0.116     -0.317      0.752      -0.263       0.190
+                          Loading coefficients (alpha) for equation SPOT                
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0162      0.008     -2.072      0.038      -0.031      -0.001
+                         Loading coefficients (alpha) for equation FUTURE               
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          ec1           -0.0159      0.007     -2.123      0.034      -0.030      -0.001
+                    Cointegration relations for loading-coefficients-column 1           
+          ==============================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+          ------------------------------------------------------------------------------
+          beta.1         1.0000          0          0      0.000       1.000       1.000
+          beta.2        -0.8266      0.084     -9.858      0.000      -0.991      -0.662
+          ==============================================================================
+          """
+\end{Verbatim}
+            
+    \paragraph{CONCLUSION}\label{conclusion}
+
+    Coefficient of lagged values of FUTURE in the regression of SPOT:
+significant at 5\% level Coefficient of lagged values of SPOT in the
+regression of FUTURE: not significant at 5\% level Coefficient of
+loading coeffcient in the regression of SPOT: significant at 5\% level
+Coefficient of loading coeffcient in the regression of FUTURE:
+significant at 5\% level
+
+Hence, based on the above results we can say there is a short-run
+unidirectional causality running from FUTURE to SPOT and there is a
+bidirectional long term causality running between the two variables.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
